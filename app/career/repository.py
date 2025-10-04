@@ -16,3 +16,11 @@ class JobRepository:
         stmt = select(Job).order_by(func.random()).limit(limit)
         result = await db.execute(stmt)
         return result.scalars().all()
+    
+    async def get_by_title_and_tier(self, db: AsyncSession, title: str, tier: int) -> Job | None:
+        stmt = select(Job).where(
+            Job.title == title,
+            Job.tier == tier
+        )
+        result = await db.execute(stmt)
+        return result.scalars().first()

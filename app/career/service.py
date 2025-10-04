@@ -47,3 +47,41 @@ class CareerService:
         self.player_state_service.save_state(player_state)
 
         return player_state
+    
+    async def promotion_event(self, db: AsyncSession, game_id: int) -> bool:
+        player_state = self.player_state_service.load_state()
+        if not player_state or not player_state.job_id:
+            return False
+        current_job = await self.job_repo.get_by_id(db, player_state.job_id)
+        if not current_job:
+            return False
+        next_tier = current_job.tier + 1
+        next_job = await self.job_repo.find_job_by_title_and_tier(
+            db,
+            title=current_job.title,
+            tier=next_tier
+        )
+        if not next_job:
+            return False
+        player_state.job_id = next_job.id
+        self.player_state_service.save_state(player_state)
+        return True
+    
+    async def promotion(self, db: AsyncSession, game_id: int) -> bool:
+        player_state = self.player_state_service.load_state()
+        if not player_state or not player_state.job_id:
+            return False
+        current_job = await self.job_repo.get_by_id(db, player_state.job_id)
+        if not current_job:
+            return False
+        next_tier = current_job.tier + 1
+        next_job = await self.job_repo.find_job_by_title_and_tier(
+            db,
+            title=current_job.title,
+            tier=next_tier
+        )
+        if not next_job or player_state.career_level < next_job.requried_career_level:
+            return False
+        player_state.job_id = next_job.id
+        self.player_state_service.save_state(player_state)
+        return True
