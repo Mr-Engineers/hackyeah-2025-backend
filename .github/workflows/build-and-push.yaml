@@ -49,9 +49,9 @@ jobs:
       - name: Trigger Deployment workflow
         uses: peter-evans/workflow-dispatch@v2
         with:
-          workflow: deploy.yml           # nazwa workflow w repo Deployment
+          workflow: deploy.yml
           repository: Mr-Engineers/Deployment
-          ref: main                      # gałąź workflow deploy
+          ref: main
           token: ${{ secrets.GITHUB_TOKEN }}
-          inputs:
-            docker_tag: ${{ needs.build.outputs.date_tag }}
+          inputs: >
+            docker_tag=${{ needs.build.outputs.date_tag }}
