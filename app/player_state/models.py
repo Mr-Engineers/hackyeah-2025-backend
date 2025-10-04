@@ -6,11 +6,6 @@ class YearContribution(BaseModel):
     worked: bool = True
     contribution: float = 0.0
 
-class Investment(BaseModel):
-    year: int
-    amount: float
-    return_rate: float = 0.08
-
 class PlayerState(BaseModel):
     age: int = 18
     sex: str = "Mężczyzna"
@@ -27,7 +22,7 @@ class PlayerState(BaseModel):
     
     family: Dict[str, Optional[int]] = {"has_partner": 0, "children": 0}
     zus_yearly_contributions: List[YearContribution] = []
-    investments: List[Investment] = []
+    investments: float = 0.0
     capital_initial: float = 0.0
     
     def add_year_contribution(self, year: int, worked: bool, contribution: float):
@@ -39,17 +34,6 @@ class PlayerState(BaseModel):
         """Sumuje wszystkie składki roczne, aby uzyskać aktualne saldo ZUS"""
         self.zus_balance = sum(yc.contribution for yc in self.zus_yearly_contributions)
         
-    def invest(self, year: int, amount: float, return_rate: float = 0.08):
-        if amount > self.savings:
-            raise ValueError("Nie masz wystarczających oszczędności do inwestycji")
-        self.savings -= amount
-        self.investments.append(Investment(year=year, amount=amount, return_rate=return_rate))
-
-    def process_investments(self, current_year: int):
-        matured = [inv for inv in self.investments if current_year - inv.year >= 1]
-        for inv in matured:
-            self.savings += inv.amount * (1 + inv.return_rate)
-            self.investments.remove(inv)
 
     def calculate_pension(self, expected_lifetime_months: int) -> float:
         total_contributions = sum(

@@ -17,7 +17,6 @@ class GameSimulator:
 
         await self._add_yearly_contribution(state, current_year, db)
         self._update_savings(state)
-        self._handle_investments(state, current_year)
         
         self.player_service.save_state(state)
         return state
@@ -47,6 +46,3 @@ class GameSimulator:
 
     def _update_savings(self, state: PlayerState):
         state.savings += max(0, state.income - state.spendings)
-
-    def _handle_investments(self, state: PlayerState, current_year: int):
-        state.process_investments(current_year=current_year)
