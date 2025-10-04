@@ -18,7 +18,8 @@ app.include_router(career_router)
 
 # Dodajemy CORS, żeby frontend mógł odbierać dane z innego portu
 origins = [
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "http://frontend:3000"
 ]
 
 app.add_middleware(
