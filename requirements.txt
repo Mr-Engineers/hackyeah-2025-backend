@@ -3,3 +3,4 @@ uvicorn
 redis
 SQLAlchemy
 supabase
+psycopg2-binary

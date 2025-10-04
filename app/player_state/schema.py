@@ -3,6 +3,7 @@ from typing import Optional, Dict
 
 class PlayerStateUpdate(BaseModel):
     age: Optional[int]
+    sex: Optional[str]
     health: Optional[int]
     education: Optional[int]
     career_level: Optional[int]
