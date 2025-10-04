@@ -1,7 +1,8 @@
-name: Build and Push Docker Image
+name: Build and Push Docker Images
 
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,10 +17,20 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Build Docker image
+    # === Backend ===
+    - name: Build FastAPI image
       run: |
-        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/hackyeah-backend .
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/hackyeah-backend:latest .
 
-    - name: Push Docker image
+    - name: Push FastAPI image
       run: |
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/hackyeah-backend
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/hackyeah-backend:latest
+
+    # === Redis ===
+    - name: Build Redis image
+      run: |
+        docker build -f Dockerfile.redis -t ${{ secrets.DOCKERHUB_USERNAME }}/hackyeah-redis:latest .
+
+    - name: Push Redis image
+      run: |
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/hackyeah-redis:latest
