@@ -1,0 +1,16 @@
+services:
+  redis:
+    image: redis:latest
+    container_name: redis-game
+    ports:
+      - "6379:6379"
+
+  fastapi:
+    build: .
+    container_name: fastapi-game
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis

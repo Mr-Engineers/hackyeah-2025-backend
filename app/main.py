@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from player_state import router
+from app.player_state import router
 
 app = FastAPI(
     title="Life Simulation API",
