@@ -14,3 +14,4 @@ class PlayerStateUpdate(BaseModel):
     zus_balance: Optional[float]
     spendings: Optional[float]
     family: Optional[Dict[str, Optional[int]]]
+    job_id: Optional[int]

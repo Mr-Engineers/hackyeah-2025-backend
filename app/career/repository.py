@@ -5,7 +5,7 @@ from .model import Job
 
 class JobRepository:
     async def get_by_id(self, db: AsyncSession, job_id: int) -> Job | None:
-        return await db.get(Job, job_id)
+        return db.get(Job, job_id)
     
     async def get_all(self, db: AsyncSession) -> list[Job]:
         stmt = select(Job)

@@ -34,7 +34,11 @@ class PlayerState(BaseModel):
         self.zus_yearly_contributions.append(
             YearContribution(year=year, worked=worked, contribution=contribution)
         )
-
+        
+    def update_zus_balance(self):
+        """Sumuje wszystkie składki roczne, aby uzyskać aktualne saldo ZUS"""
+        self.zus_balance = sum(yc.contribution for yc in self.zus_yearly_contributions)
+        
     def invest(self, year: int, amount: float, return_rate: float = 0.08):
         if amount > self.savings:
             raise ValueError("Nie masz wystarczających oszczędności do inwestycji")

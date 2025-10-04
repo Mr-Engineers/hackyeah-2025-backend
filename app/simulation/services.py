@@ -34,15 +34,16 @@ class GameSimulator:
         if state.job_id:
             job = await self.job_repo.get_by_id(db, state.job_id)
             if job:
-                rates = {"UoP": 0.19, "UoD": 0.18, "B2B": 0.15}
-                contribution = job.salary * rates.get(job.employment_type, 0.19)
+                rates = {"Umowa o prace": 0.19, "Umowa o dzielo": 0.18, "Kontrakt": 0.15, "Umowa zlecenie": 0.1}
+                contribution = job.salary*12 * rates.get(job.employment_type)
                 state.add_year_contribution(year=current_year, worked=True, contribution=contribution)
                 state.zus_balance += contribution
-                state.income = job.salary
+                state.income = job.salary*12
                 return
-        # brak pracy w tym roku
-        state.add_year_contribution(year=current_year, worked=False, contribution=0.0)
-        state.income = 0
+        else:
+            state.add_year_contribution(year=current_year, worked=False, contribution=0.0)
+            state.income = 0
+        state.update_zus_balance()
 
     def _update_savings(self, state: PlayerState):
         state.savings += max(0, state.income - state.spendings)
