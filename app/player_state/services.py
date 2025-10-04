@@ -7,11 +7,9 @@ class PlayerStateService:
         self.REDIS_KEY = "player_state"
 
     def save_state(self, state: PlayerState):
-        """Zapisuje stan gracza do Redis"""
         self.redis.set(self.REDIS_KEY, state.json())
 
     def load_state(self) -> PlayerState:
-        """Ładuje stan gracza z Redis"""
         data = self.redis.get(self.REDIS_KEY)
         if data:
             return PlayerState.parse_raw(data)
@@ -20,12 +18,10 @@ class PlayerStateService:
         return default_state
 
     def reset_state(self) -> PlayerState:
-        """Resetuje stan gracza"""
         state = PlayerState()
         self.save_state(state)
         return state
 
     def update_state(self, updated_state: PlayerState) -> PlayerState:
-        """Aktualizuje stan gracza"""
         self.save_state(updated_state)
         return updated_state

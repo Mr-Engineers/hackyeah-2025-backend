@@ -1,5 +1,6 @@
 fastapi
 uvicorn
 redis
-sqlalchemy
+SQLAlchemy
 supabase
+psycopg2-binary
