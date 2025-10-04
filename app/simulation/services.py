@@ -33,7 +33,7 @@ class GameSimulator:
         if state.job_id:
             job = await self.job_repo.get_by_id(db, state.job_id)
             if job:
-                rates = {"Umowa o prace": 0.19, "Umowa o dzielo": 0.18, "Kontrakt": 0.15, "Umowa zlecenie": 0.1}
+                rates = {"Umowa o prace": 0.1952, "Umowa o dzielo": 0.0, "Kontrakt": 0.15, "Umowa zlecenie": 0.1952}
                 contribution = job.salary*12 * rates.get(job.employment_type)
                 state.add_year_contribution(year=current_year, worked=True, contribution=contribution)
                 state.zus_balance += contribution
