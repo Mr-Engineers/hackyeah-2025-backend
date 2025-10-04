@@ -44,16 +44,3 @@ class PlayerState(BaseModel):
             raise ValueError("Expected lifetime months must be positive")
         return total_contributions / expected_lifetime_months
     
-    def add_contribution(self, year: int, contract_type: str, base_salary: float):
-        """
-        contract_type: "UoP", "UoD", "B2B"
-        base_salary: wynagrodzenie w danym roku
-        """
-        # przykładowe stawki składek
-        rates = {"UoP": 0.19, "UoD": 0.18, "B2B": 0.15}
-        contribution = base_salary * rates.get(contract_type, 0.19)
-        self.zus_yearly_contributions.append(
-            YearContribution(year=year, worked=True, contribution=contribution)
-        )
-        self.zus_balance += contribution
-
