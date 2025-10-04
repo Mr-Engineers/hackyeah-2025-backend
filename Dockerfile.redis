@@ -1,8 +1,14 @@
 # Dockerfile.redis
-FROM redis:latest
+FROM redis:8.2
 
-# Ustawienia katalogu na dane (tak jak w compose volumes:/data)
+# Tworzymy katalog danych i nadajemy uprawnienia użytkownikowi redis
+RUN mkdir -p /data && chown redis:redis /data
+
+# Ustawienie katalogu jako volume
 VOLUME /data
+
+# Uruchamiamy Redis jako użytkownik redis
+USER redis
 
 # Domyślne polecenie
 CMD ["redis-server", "--appendonly", "yes"]
