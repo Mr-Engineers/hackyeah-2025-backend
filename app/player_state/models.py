@@ -1,9 +1,5 @@
-from pydantic import BaseModel, Field
-from typing import List, Optional
-
-class Family(BaseModel):
-    has_partner: bool = False
-    children_count: int = 0
+from pydantic import BaseModel
+from typing import Optional, Dict
 
 class PlayerState(BaseModel):
     age: int = 18
@@ -16,4 +12,4 @@ class PlayerState(BaseModel):
     social_relations: int = 50
     zus_balance: float = 0.0
     spendings: float = 0.0
-    family: Family = Family()
+    family: Dict[str, Optional[int]] = {"has_partner": 0, "children": 0}

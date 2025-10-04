@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.player_state import router
+from app.player_state.router import router as player_router
 
 app = FastAPI(
     title="Life Simulation API",
@@ -7,7 +7,7 @@ app = FastAPI(
     description="API do symulacji życia gracza"
 )
 
-app.include_router(router.router)
+app.include_router(player_router)
 
 
 @app.get("/")
