@@ -3,15 +3,13 @@ name: Build, Push and Deploy
 on:
   workflow_dispatch:
 
-env:
-  DOCKER_IMAGE: kmaku4/hackyeah-backend
-
 jobs:
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
     outputs:
-      date_tag: ${{ steps.set_tag.outputs.date_tag }}
+      image_full: ${{ steps.build_image.outputs.image_full }}
+      date_tag: ${{ steps.set_tag.outputs.tag }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -19,12 +17,15 @@ jobs:
       - name: Set image tag
         id: set_tag
         run: |
-          DATE_TAG=$(date +%F)
-          echo "date_tag=$DATE_TAG" >> $GITHUB_OUTPUT
+          TAG=$(date +%F)
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
 
       - name: Build Docker image
+        id: build_image
         run: |
-          docker build -t $DOCKER_IMAGE:${{ steps.set_tag.outputs.date_tag }} .
+          IMAGE=kmaku4/hackyeah-backend:${{ steps.set_tag.outputs.tag }}
+          docker build -t $IMAGE .
+          echo "image_full=$IMAGE" >> $GITHUB_OUTPUT
 
   push:
     name: Push Docker Image
@@ -39,7 +40,7 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker push $DOCKER_IMAGE:${{ needs.build.outputs.date_tag }}
+          docker push ${{ needs.build.outputs.image_full }}
 
   deploy:
     name: Trigger Deployment Workflow
