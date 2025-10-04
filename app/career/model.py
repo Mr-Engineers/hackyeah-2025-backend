@@ -10,5 +10,5 @@ class Job(Base):
     salary = Column(Float)
     stress_level = Column(Integer)
     required_education = Column(Integer)
-    required_experience = Column(Integer)
+    required_career_level = Column(Integer)
     employment_type = Column(String)

@@ -11,10 +11,7 @@ class JobRepository:
         result = await db.execute(stmt)
         return result.scalars().all()
     
-    async def get_available_for_player(self, db: AsyncSession, education: int, experience: int) -> list[Job]:
-        stmt = select(Job).where(
-            Job.required_education <= education,
-            Job.required_experience <= experience
-        )
+    async def get_random_jobs(self, db: AsyncSession, limit: int) -> list[Job]:
+        stmt = select(Job).order_by(func.random().limit(limit))
         result = await db.execute(stmt)
         return result.scalars().all()
