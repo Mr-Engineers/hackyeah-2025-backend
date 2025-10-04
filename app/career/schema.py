@@ -1,14 +1,15 @@
 from pydantic import BaseModel, Field
+from typing import Literal
 
 class JobRead(BaseModel):
     id: int
-    title: str
+    title: Literal["Software Engineer"]
     company: str
     salary: float
-    stress_level: int
-    required_education: int
-    required_career_level: int
-    employment_type: str
+    stress_level: int = Field(..., ge=0, le=10)
+    required_education: Literal[1, 2, 3, 4, 5]
+    required_career_level: int = Field(..., ge=0, le=1000)
+    employment_type: Literal["Umowa o prace", "Umowa o dzielo", "Umowa zlecenie", "Kontrakt"]
 
     class Config:
         from_attributes = True

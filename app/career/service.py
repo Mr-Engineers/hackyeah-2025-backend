@@ -16,7 +16,7 @@ class CareerService:
         self.job_repo = JobRepository()
         self.player_state_service = PlayerStateService()
     
-    async def list_available_jobs_for_player(self, db: AsyncSession, game_id: int) -> list:
+    async def get_random_job_offers(self, db: AsyncSession, game_id: int) -> list:
         player_state = self.player_state_service.load_state()
         random_jobs = await self.job_repo.get_random_jobs(db, limit=3)
         job_offers = []
