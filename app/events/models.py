@@ -1,13 +1,14 @@
 from pydantic import BaseModel, Field
 from typing import List, Optional
 
+
 class BadEvent():
     title: str
     description: str
     image: str
     decisive_atribute: str
-    decreased_attribute: str
-    decrease_value: int
+    decreased_attribute: list[str]
+    decrease_value: list[float]
 
     def __str__(self):
         return (
