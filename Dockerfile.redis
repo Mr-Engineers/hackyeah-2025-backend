@@ -1,0 +1,8 @@
+# Dockerfile.redis
+FROM redis:latest
+
+# Ustawienia katalogu na dane (tak jak w compose volumes:/data)
+VOLUME /data
+
+# Domyślne polecenie
+CMD ["redis-server", "--appendonly", "yes"]
