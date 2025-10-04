@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from .repository import JobRepository
 from ..player_state.models import PlayerState
-from ..player_state.services import PlayerStateService
+from ..player_state.router import service as player_state_service
 from .schema import JobOffer
 
 class CareerError(Exception):
@@ -14,7 +14,7 @@ class PlayerNotQualifiedError(CareerError):
 class CareerService:
     def __init__(self):
         self.job_repo = JobRepository()
-        self.player_state_service = PlayerStateService()
+        self.player_state_service = player_state_service
     
     async def get_random_job_offers(self, db: AsyncSession, game_id: int) -> list:
         player_state = self.player_state_service.load_state()

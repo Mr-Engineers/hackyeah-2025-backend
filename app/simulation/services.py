@@ -2,6 +2,7 @@ from app.player_state.services import PlayerStateService
 from app.player_state.models import PlayerState
 from app.career.repository import JobRepository
 from sqlalchemy.ext.asyncio import AsyncSession
+import random
 
 class GameSimulator:
     def __init__(self, player_service: PlayerStateService, job_repo: JobRepository):
@@ -19,6 +20,8 @@ class GameSimulator:
         self._update_savings(state)
         
         self.player_service.save_state(state)
+
+        rr = self._calculate_yearly_return(state)
         return state
 
     # --- Funkcje pomocnicze ---
@@ -46,3 +49,13 @@ class GameSimulator:
 
     def _update_savings(self, state: PlayerState):
         state.savings += max(0, state.income - state.spendings)
+
+    def _calculate_yearly_return(self, state: PlayerState) -> float:
+        if state.investments > 0:
+            return_rate = random.uniform(-1.04, 1.1)
+            growth = state.investments * return_rate
+            state.investments += growth
+
+        self.player_service.save_state(state)
+        return return_rate
+    

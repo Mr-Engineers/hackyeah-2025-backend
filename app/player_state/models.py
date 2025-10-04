@@ -19,6 +19,7 @@ class PlayerState(BaseModel):
     zus_balance: float = 0.0
     spendings: float = 0.0
     job_id: Optional[int] = None
+    lifestyle_expenses: int = 0
     
     family: Dict[str, Optional[int]] = {"has_partner": 0, "children": 0}
     zus_yearly_contributions: List[YearContribution] = []
