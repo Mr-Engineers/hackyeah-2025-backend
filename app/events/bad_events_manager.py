@@ -56,5 +56,3 @@ def draw_random_bad_event(player_state: PlayerState):
             return event
 
     return None
-
-get_all_bad_events()
