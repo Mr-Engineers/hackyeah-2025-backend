@@ -5,6 +5,7 @@ class Job(Base):
     __tablename__ = "jobs"
 
     id = Column(Integer, primary_key=True, index=True)
+    tier = Column(Integer, index=True)
     title = Column(String, index=True)
     company = Column(String, index=True)
     salary = Column(Float)

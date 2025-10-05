@@ -8,6 +8,7 @@ class PlayerStateUpdate(BaseModel):
     education: Optional[int]
     career_level: Optional[int]
     income: Optional[float]
+    gross_income: Optional[float]
     savings: Optional[float]
     happiness: Optional[int]
     social_relations: Optional[int]
@@ -17,3 +18,4 @@ class PlayerStateUpdate(BaseModel):
     job_id: Optional[int]
     lifestyle_expenses: Optional[int]
     investments: Optional[float]
+    capital_initial: Optional[float]

@@ -1,0 +1,210 @@
+[
+  {
+    "name": "Weekendowy wypad za miasto",
+    "description": "Krótka ucieczka od codzienności, aby naładować baterie.",
+    "cost": 600,
+    "effects": {
+      "happiness": 15,
+      "health": 5
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Roczny karnet na siłownię",
+    "description": "Zainwestuj w swoją kondycję fizyczną i samopoczucie.",
+    "cost": 1500,
+    "effects": {
+      "health": 30,
+      "happiness": 10
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Kurs językowy online",
+    "description": "Zdobądź nowe umiejętności i otwórz się na świat.",
+    "cost": 1200,
+    "effects": {
+      "education": 25,
+      "happiness": 5
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Zorganizowanie dużej imprezy dla znajomych",
+    "description": "Zacieśnij więzi i spędź niezapomniany wieczór w dobrym towarzystwie.",
+    "cost": 1000,
+    "effects": {
+      "social_relations": 20,
+      "happiness": 15
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Wolontariat w schronisku",
+    "description": "Pomóż potrzebującym zwierzętom i poczuj satysfakcję.",
+    "cost": 200,
+    "effects": {
+      "happiness": 10,
+      "social_relations": 5
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Tygodniowe wakacje w górach",
+    "description": "Aktywny wypoczynek na łonie natury, który poprawi Twoje zdrowie.",
+    "cost": 2500,
+    "effects": {
+      "health": 40,
+      "happiness": 25
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Adopcja zwierzaka domowego",
+    "description": "Zyskaj wiernego przyjaciela i ożyw swój dom.",
+    "cost": 500,
+    "effects": {
+      "family": 30,
+      "happiness": 20
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Specjalistyczne warsztaty branżowe",
+    "description": "Pogłęb swoją wiedzę i zdobądź cenne certyfikaty.",
+    "cost": 3000,
+    "effects": {
+      "education": 50,
+      "social_relations": 10
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Generalny remont mieszkania",
+    "description": "Odśwież swoje otoczenie i poczuj się lepiej we własnym domu.",
+    "cost": 20000,
+    "effects": {
+      "happiness": 60,
+      "family": 30
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Wyjście na koncert ulubionego zespołu",
+    "description": "Przeżyj niesamowite emocje i baw się dobrze.",
+    "cost": 400,
+    "effects": {
+      "happiness": 15,
+      "social_relations": 5
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Egzotyczna podróż (2 tygodnie)",
+    "description": "Odkryj nowe kultury i przeżyj przygodę życia.",
+    "cost": 12000,
+    "effects": {
+      "happiness": 100,
+      "education": 20
+    },
+    "requirements": {
+      "min_cash": 15000
+    }
+  },
+  {
+    "name": "Terapia par",
+    "description": "Zainwestuj w swój związek i rozwiąż problemy.",
+    "cost": 2500,
+    "effects": {
+      "family": 40,
+      "happiness": 15
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Kurs gotowania u szefa kuchni",
+    "description": "Zaskocz bliskich nowymi, kulinarnymi umiejętnościami.",
+    "cost": 900,
+    "effects": {
+      "family": 10,
+      "happiness": 10
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Studia podyplomowe",
+    "description": "Znacząco podnieś swoje kwalifikacje zawodowe.",
+    "cost": 8000,
+    "effects": {
+      "education": 120,
+      "happiness": 20
+    },
+    "requirements": {
+      "education_level": 2
+    }
+  },
+  {
+    "name": "Zakup nowego, bezpiecznego samochodu",
+    "description": "Zwiększ komfort i bezpieczeństwo podróży dla całej rodziny.",
+    "cost": 60000,
+    "effects": {
+      "family": 50,
+      "happiness": 40
+    },
+    "requirements": {
+      "min_cash": 60000
+    }
+  },
+  {
+    "name": "Regularne wizyty u fizjoterapeuty",
+    "description": "Zadbaj o swoje ciało, aby uniknąć problemów w przyszłości.",
+    "cost": 2000,
+    "effects": {
+      "health": 35,
+      "happiness": 5
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Wypad na weekend do SPA",
+    "description": "Pełen relaks i regeneracja sił w luksusowych warunkach.",
+    "cost": 1800,
+    "effects": {
+      "health": 20,
+      "happiness": 25
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Zorganizowanie zjazdu rodzinnego",
+    "description": "Zbierz całą rodzinę w jednym miejscu i odnów więzi.",
+    "cost": 3500,
+    "effects": {
+      "family": 60,
+      "social_relations": 20
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Lot balonem dla dwojga",
+    "description": "Romantyczne i niezapomniane przeżycie.",
+    "cost": 1300,
+    "effects": {
+      "happiness": 30,
+      "family": 10
+    },
+    "requirements": {}
+  },
+  {
+    "name": "Hobby: kolekcjonowanie sztuki",
+    "description": "Zainwestuj w dzieła sztuki, które wzbogacą Twoje życie.",
+    "cost": 15000,
+    "effects": {
+      "education": 30,
+      "happiness": 40
+    },
+    "requirements": {
+      "min_cash": 20000
+    }
+  }
+]
