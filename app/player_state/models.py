@@ -51,7 +51,15 @@ class PlayerState(BaseModel):
         changes_dict = bad_event.get_decreased_attribute_dict()
         for key, changed_value in changes_dict.items():
             current_value = getattr(self, key) 
-            setattr(self, key, current_value - changed_value)
+            new_value = current_value - changed_value
+            
+            # Apply validation limits to prevent Pydantic errors
+            if key == "education":
+                new_value = max(1, new_value)  # education must be >= 1
+            elif key in ["happiness", "social_relations", "health"]:
+                new_value = max(0, new_value)  # these must be >= 0
+            
+            setattr(self, key, new_value)
 
     def apply_event(self, event: Event):
         buffs = event.get_advantaged_attributes_dict()
