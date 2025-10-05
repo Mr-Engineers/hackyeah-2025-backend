@@ -7,7 +7,7 @@ class YearContribution(BaseModel):
     contribution: float = 0.0
 
 class PlayerState(BaseModel):
-    age: int = 18
+    age: int = 20
     sex: str = "Mężczyzna"
     health: int = 100
     education: int = 0
