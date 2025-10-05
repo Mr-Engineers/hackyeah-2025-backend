@@ -12,12 +12,6 @@ app = FastAPI(
     description="API do symulacji życia gracza"
 )
 
-app.include_router(player_router)
-app.include_router(simulation_router)
-app.include_router(finance_router)
-app.include_router(career_router)
-app.include_router(lifestyle_router)
-app.include_router(events_router)
 # Dodajemy CORS, żeby frontend mógł odbierać dane z innego portu
 origins = [
     "http://localhost:3000",
@@ -37,6 +31,7 @@ app.include_router(simulation_router)
 app.include_router(finance_router)
 app.include_router(career_router)
 app.include_router(lifestyle_router)
+app.include_router(events_router)
 
 @app.get("/hello")
 async def hello():
