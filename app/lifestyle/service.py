@@ -26,5 +26,7 @@ class LifestyleService:
             if hasattr(player_state, key):
                 current_value = getattr(player_state, key)
                 setattr(player_state, key, current_value + value)
+        player_state.lifestyle_expenses += action.cost
         service.save_state(player_state)
+
         return player_state

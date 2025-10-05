@@ -24,12 +24,21 @@ class GameSimulator:
         await self._add_yearly_contribution(state, current_year, db)
         self._update_savings(state)
         
-        health_calculator.calculate_annual_change(state, state.job_id)
+        health_calculator.calculate_annual_change(state, state.job_id, db)
 
         state.update_zus_balance()
-        self.player_service.save_state(state)
+
 
         self._calculate_yearly_return(state)
+
+        self._jobless_penalty(state)
+        self._apply_stat_synergies(state)
+        self._yearly_exp_gain(state)
+        self.player_service.save_state(state)
+        
+        rr = self._calculate_yearly_return(state)
+
+        state.lifestyle_expenses = 0
         return state
 
     def _increase_age(self, state: PlayerState):
@@ -178,7 +187,8 @@ class GameSimulator:
 
     def _calculate_yearly_return(self, state: PlayerState) -> float:
         if state.investments > 0:
-            return_rate = random.uniform(-1.04, 1.1)
+            return_rate = random.uniform(-0.04, 0.1)
+            print(f'return rate = {return_rate}')
             growth = state.investments * return_rate
             state.investments += growth
 
@@ -186,3 +196,52 @@ class GameSimulator:
             return return_rate
         return 0
     
+    def _yearly_exp_gain(self, state: PlayerState):
+        state.career_level += 15
+        state.education += 15
+
+    def _jobless_penalty(self, state: PlayerState):
+        if not state.job_id:
+            state.happiness -= 15
+    
+    def _apply_stat_synergies(self, state: PlayerState):
+        if state.happiness > 700:
+            state.health += 8
+            state.social_relations += 8
+        elif state.happiness > 600:
+            state.health += 4
+            state.social_relations += 4
+        elif state.happiness >= 450 and state.happiness <= 550:
+            pass
+        elif state.happiness < 450 and state.happiness >= 300:
+            state.health -= 4
+            state.social_relations -= 4
+        elif state.happiness < 300:
+            state.health -= 8
+            state.social_relations -= 8
+
+
+        if state.health > 800:
+            state.happiness += 5
+        elif state.health < 300:
+            state.happiness -= 15
+        
+        if state.job_id:
+            state.happiness += 3
+        
+        if state.savings < 5000:
+            state.happiness -= 15
+            state.health -= 7
+        elif state.savings > 100000:
+            state.happiness += 4
+        
+        if state.social_relations < 250:
+            state.health -= 10
+            state.happiness -= 10
+
+        state.health = max(0, min(1000, state.health))
+        state.happiness = max(0, min(1000, state.happiness))
+        state.social_relations = max(0, min(1000, state.social_relations))
+        
+
+        

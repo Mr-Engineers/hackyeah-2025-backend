@@ -31,9 +31,5 @@ def calculate_pension_endpoint():
 
     if not state:
         raise HTTPException(status_code=404, detail="Stan gracza nie został znaleziony")
-
-    expected_lifetime_months = 264,2
-    if state.sex=="Mężczyzna":
-        expected_lifetime_months = 218.9
-    pension = state.calculate_pension(expected_lifetime_months)
+    pension = state.calculate_pension()
     return pension
