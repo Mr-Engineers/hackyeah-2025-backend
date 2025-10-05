@@ -1,9 +1,11 @@
 from typing import Optional
 from ..career.model import Job
 from ..player_state.models import PlayerState
+from ..player_state.router import service
+from ..career.repository import job_repo
 
 class HealthCalculator:
-    def calculate_annual_change(self, player: PlayerState, job: Optional[Job]) -> int:
+    def calculate_annual_change(self, player: PlayerState, job_id: Optional[int]) -> PlayerState:
         total_chage = 0
         if 18 <= player.age <= 30:
             total_chage -= 2
@@ -14,10 +16,13 @@ class HealthCalculator:
         else:
             total_change -= 20
 
-        if job:
+        if job_id:
+            job = job_repo.get_by_id(job_id)
             stress_penalty = job.stress_level * 1.5
             total_change -= stress_penalty
 
-        return total_change
+        player.health += total_chage
+        service.save_state(player)
+        return player
 
-        
+health_calculator = HealthCalculator()

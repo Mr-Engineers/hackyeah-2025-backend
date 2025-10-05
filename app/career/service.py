@@ -40,7 +40,7 @@ class CareerService:
             raise JobNotFoundError(f"praca o ID {job_id} nie zostala znaleziona")
         if player_state.education < job.required_education:
             raise PlayerNotQualifiedError("Gracz ma zbyt niski poziom edukacji.")
-        if player_state.career_level < job.required_career_lebel:
+        if player_state.career_level < job.required_career_level:
             raise PlayerNotQualifiedError("Gracz ma zbyt niski poziom doświadczenia zawodowego.")
         
         player_state.job_id = job.id

@@ -3,6 +3,7 @@ from app.player_state.models import PlayerState
 from app.career.repository import JobRepository
 from sqlalchemy.ext.asyncio import AsyncSession
 import random
+from .health import health_calculator
 from typing import Tuple
 
 class GameSimulator:
@@ -23,7 +24,8 @@ class GameSimulator:
         await self._add_yearly_contribution(state, current_year, db)
         self._update_savings(state)
         
-        
+        health_calculator.calculate_annual_change(state, state.job_id)
+
         state.update_zus_balance()
         self.player_service.save_state(state)
 

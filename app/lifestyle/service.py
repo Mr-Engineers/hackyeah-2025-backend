@@ -1,14 +1,18 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from ..player_state.router import service
 from .model import LifestyleAction
+from ..core.game_data import game_data
 
 class LifestyleService:
-    async def get_action_by_id(self, db: AsyncSession, action_id: int) -> LifestyleAction | None:
-        return await db.get(LifestyleAction, action_id)
+    def get_action_by_id(self, action_id: int) -> LifestyleAction | None:
+        for action in game_data.lifestyle_actions:
+            if action.id == action_id:
+                return action
+        return None
     
-    async def execute_action(self, db: AsyncSession, action_id: int):
+    async def execute_action(self, action_id: int):
         player_state = service.load_state()
-        action = await self.get_action_by_id(db, action_id)
+        action = self.get_action_by_id(action_id)
 
         if not action:
             raise ValueError("action not found")

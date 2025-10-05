@@ -24,3 +24,5 @@ class JobRepository:
         )
         result = db.execute(stmt)
         return result.scalars().first()
+    
+job_repo = JobRepository()

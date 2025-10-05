@@ -24,7 +24,7 @@ async def apply_for_job(request: schema.JobApplyRequest, db: AsyncSession = Depe
         return updated_player_state
     except JobNotFoundError as e :
         raise HTTPException(status_code=404, detail=str(e))
-    except PlayerNotQualifiedError(e):
+    except PlayerNotQualifiedError as e:
         raise HTTPException(status_code=400, detail=str(e))
     
     
