@@ -18,6 +18,11 @@ async def get_job_offers(db: AsyncSession = Depends(get_db)):
     offers = career_service.get_random_job_offers(db)
     return offers
 
+@router.get("/job_test")
+async def get_job_offers():
+    offers = "dupa"
+    return offers
+
 @router.post("/apply", response_model=PlayerStateSchema)
 async def apply_for_job(request: schema.JobApplyRequest, db: AsyncSession = Depends(get_db)):
     try:
