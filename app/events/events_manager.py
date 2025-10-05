@@ -29,7 +29,8 @@ def get_all_events():
             disadvantaged_attribute_values = to_num_list(row['disadvantaged_attribute_values']),
 
             job_name = row['job_name'],
-            chance_increaser = row['chance_increaser']
+            job_id = row['job_id'],
+            available = True
         )
 
         events_list.append(temp)
@@ -37,11 +38,36 @@ def get_all_events():
     return events_list
 
 
+def verify_requirements(player_state: PlayerState, requirements_dict: dict):
+    for key, required_value in requirements_dict.items():
+        current_value = getattr(player_state, key) 
+        if not current_value >=  required_value:
+            return False
+        
+    return True
+
+
+def verify_if_event_is_available(player_state: PlayerState, event_list: list):
+    for event in event_list:
+        if not verify_requirements(player_state, event.get_required_attributes_dict()):
+            event = False
+
+
 def select_suitable_events(player_state: PlayerState):
     # initial events
     events_list = get_all_events()
     suitable_events = []
     if player_state.age == 20:
-        suitable_events = [event for event in events_list if event.get_required_attributes_dict() == {'age': 20.0}]
+        suitable_events = [event for event in events_list if event.get_required_attributes_dict().get('age') == 20.0]
+    elif player_state.age == 22:
+        suitable_events = [event for event in events_list if event.get_required_attributes_dict().get('age') == 22.0]
+        verify_if_event_is_available(player_state, suitable_events)
+    else:
+        suitable_events = [
+            event for event in events_list
+            if not event.get_required_attributes_dict().get('age') == 20.0
+        ]
 
-    return suitable_events
+    return random.sample(suitable_events, min(3, len(suitable_events)))
+
+select_suitable_events(PlayerState(age=25))

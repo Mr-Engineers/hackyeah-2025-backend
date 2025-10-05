@@ -29,3 +29,9 @@ def get_event():
     random_events = select_suitable_events(player_state)
 
     return [event.__dict__ for event in random_events]
+
+@router.post("/event/update", response_model=Event)
+def update_player_with_selected_event(event: Event):
+    player_state = get_player_state()
+    player_state.apply_bad_event(event)
+    return service.update_state(player_state)
