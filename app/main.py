@@ -38,5 +38,5 @@ async def hello():
     return {"message": "Hello World"}
 
 @app.get("/")
-def root():
+async def root():
     return {"message": "Life Simulation API działa 🚀"}
