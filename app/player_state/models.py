@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional, Dict, List
+from app.events.models import BadEvent
 
 class YearContribution(BaseModel):
     year: int
@@ -45,4 +46,10 @@ class PlayerState(BaseModel):
         if expected_lifetime_months <= 0:
             raise ValueError("Expected lifetime months must be positive")
         return total_contributions / expected_lifetime_months
+    
+    def apply_bad_event(self, bad_event: BadEvent):
+        changes_dict = bad_event.get_decreased_attribute_dict()
+        for key, changed_value in changes_dict:
+            current_value = getattr(self, key), 
+            setattr(self, key, current_value - changed_value)
     

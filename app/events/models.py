@@ -24,6 +24,10 @@ class BadEvent():
             f"  Decrease value: {self.decrease_value}\n"
             f")"
         )
+    
+    def get_decreased_attribute_dict(self):
+        return dict(zip(self.decreased_attribute, self.decrease_value))
+
 
 @dataclass
 class Event:
@@ -57,5 +61,13 @@ class Event:
             f"Chance job_name: {self.job_name}\n"
             f"Chance Increaser: {self.chance_increaser}\n\n"
         )
-
+    
+    def get_required_attributes_dict(self):
+        return dict(zip(self.required_attributes, self.required_attribute_values))
+        
+    def get_advantaged_attributes_dict(self):
+        return dict(zip(self.advantaged_attributes, self.advantaged_attribute_values))
+    
+    def get_disadvantaged_attributes_dict(self):
+        return dict(zip(self.disadvantaged_attributes, self.disadvantaged_attribute_values))
 

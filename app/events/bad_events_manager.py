@@ -49,7 +49,8 @@ def draw_random_bad_event(player_state: PlayerState, bad_events_list: list):
     for event in bad_events_list:
         player_value = getattr(player_state, event.decisive_atribute)
         threshold_value = event.threshold
-        if(should_trigger(player_value, threshold_value)):
+        # if(should_trigger(player_value, threshold_value)):
+        if(True):
             return event
         
     return None
