@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional, Dict, List
-from app.events.models import BadEvent
+from app.events.models import BadEvent, Event
 
 class YearContribution(BaseModel):
     year: int
@@ -52,4 +52,14 @@ class PlayerState(BaseModel):
         for key, changed_value in changes_dict.items():
             current_value = getattr(self, key) 
             setattr(self, key, current_value - changed_value)
-    
+
+    def apply_event(self, event: Event):
+        buffs = event.get_advantaged_attributes_dict()
+        for key, changed_value in buffs.items():
+            current_value = getattr(self, key) 
+            setattr(self, key, current_value + changed_value)
+
+        nerfs = event.get_disadvantaged_attributes_dict()
+        for key, changed_value in nerfs.items():
+            current_value = getattr(self, key) 
+            setattr(self, key, current_value - changed_value)

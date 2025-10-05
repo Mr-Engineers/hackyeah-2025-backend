@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from typing import Optional
-from app.events.models import BadEvent
+from app.events.models import BadEvent, Event
 from app.player_state.services import PlayerStateService
 
 from ..events.bad_events_manager import draw_random_bad_event
@@ -22,7 +22,7 @@ def get_bad_event():
 
     return random_event
 
-@router.get("/event", response_model=BadEvent)
+@router.get("/event", response_model=Event)
 def get_event():
     player_state = get_player_state()
     random_events = select_suitable_events(player_state)
