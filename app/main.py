@@ -15,7 +15,8 @@ app = FastAPI(
 # Dodajemy CORS, żeby frontend mógł odbierać dane z innego portu
 origins = [
     "http://localhost:3000",
-    "http://frontend:3000"
+    "http://frontend:3000",
+    "https://hackyeah-frontend-1cdb20bec798.herokuapp.com"
 ]
 
 app.add_middleware(
