@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from typing import Optional
 from app.events.models import BadEvent, Event
+from app.events.models import BadEvent, Event
 from app.player_state.services import PlayerStateService
 
 from ..events.bad_events_manager import draw_random_bad_event
