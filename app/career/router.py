@@ -14,8 +14,14 @@ router = APIRouter(prefix="/career")
 career_service = CareerService()
 
 @router.get("/job_offers", response_model=List[schema.JobOffer])
+
 async def get_job_offers(db: AsyncSession = Depends(get_db)):
-    offers = await career_service.get_random_job_offers(db)
+    offers = career_service.get_random_job_offers(db)
+    return offers
+
+@router.get("/job_test")
+async def get_job_offers():
+    offers = "dupa"
     return offers
 
 @router.post("/apply", response_model=PlayerStateSchema)
@@ -31,7 +37,12 @@ async def apply_for_job(request: schema.JobApplyRequest, db: AsyncSession = Depe
         raise HTTPException(status_code=400, detail=str(e))
     
 @router.get("/current_job", response_model=JobRead)
-async def get_job_details():
+async def get_job_details(db: AsyncSession = Depends(get_db)):
     player_state = service.load_state()
-    job_details = job_repo.get_by_id(player_state.job_id)
+    print("SKIBIDISKIBIDISKIBIDISKIBIDISKIBIDISKIBIDISKIBIDISKIBIDISKIBIDI")
+    print(player_state.job_id)
+    if player_state.job_id is not None:
+        job_details = job_repo.get_by_id(db, player_state.job_id)
+    else:
+        return None
     return job_details

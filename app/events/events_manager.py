@@ -67,8 +67,7 @@ def select_suitable_events(player_state: PlayerState):
             event for event in events_list
             if not event.get_required_attributes_dict().get('age') == 20.0
         ]
-        
-    print(suitable_events.__len__())
-    return suitable_events
+
+    return random.sample(suitable_events, min(3, len(suitable_events)))
 
 select_suitable_events(PlayerState(age=25))
