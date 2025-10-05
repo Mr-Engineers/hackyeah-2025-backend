@@ -25,34 +25,36 @@ def get_all_bad_events():
             decrease_value = to_num_list(row.get('decrease_value'))
         )
         bad_events_list.append(temp)
-        print(temp)
 
     return bad_events_list
 
 
-def select_suitable_bad_events(player_state: PlayerState, bad_events_list: list):
+def select_suitable_bad_events(player_state: PlayerState):
+    bad_events_list = get_all_bad_events()
     suitable_bad_events = list()
     
     for event in bad_events_list:
         player_value= getattr(player_state, event.decisive_atribute)
         threshold = event.threshold
 
-        if player_value <= threshold:
-            suitable_bad_events.append(event)
+        # if player_value <= threshold:
+        #     suitable_bad_events.append(event)
+        suitable_bad_events.append(event)
 
     return suitable_bad_events
 
 
-def draw_random_bad_event(player_state: PlayerState, bad_events_list: list):
+def draw_random_bad_event(player_state: PlayerState):
+    bad_events_list = select_suitable_bad_events(player_state)
+    print(bad_events_list)
     random.shuffle(bad_events_list)
 
     for event in bad_events_list:
         player_value = getattr(player_state, event.decisive_atribute)
         threshold_value = event.threshold
-        # if(should_trigger(player_value, threshold_value)):
-        if(True):
+        if(should_trigger(player_value, threshold_value)):
             return event
-        
+
     return None
 
 get_all_bad_events()
