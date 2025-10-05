@@ -22,7 +22,7 @@ class HealthCalculator:
             stress_penalty = job.stress_level * 1.5
             total_change -= stress_penalty
 
-        player.health += total_change
+        player.health += 1000
         service.save_state(player)
         return player
 

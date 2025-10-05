@@ -16,7 +16,7 @@
     "description": "Zdobądź nowe umiejętności i otwórz się na świat.",
     "cost": 1200,
     "effects": {
-      "education": 25,
+      "education": 1,
       "happiness": 5
     },
     "requirements": {}
@@ -71,7 +71,7 @@
     "description": "Pogłęb swoją wiedzę i zdobądź cenne certyfikaty.",
     "cost": 3000,
     "effects": {
-      "education": 50,
+      "education": 1,
       "social_relations": 10
     },
     "requirements": {}

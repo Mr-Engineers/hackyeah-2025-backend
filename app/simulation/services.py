@@ -198,7 +198,6 @@ class GameSimulator:
     
     def _yearly_exp_gain(self, state: PlayerState):
         state.career_level += 15
-        state.education += 15
 
     def _jobless_penalty(self, state: PlayerState):
         if not state.job_id:
