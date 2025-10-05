@@ -49,7 +49,7 @@ class PlayerState(BaseModel):
     
     def apply_bad_event(self, bad_event: BadEvent):
         changes_dict = bad_event.get_decreased_attribute_dict()
-        for key, changed_value in changes_dict:
-            current_value = getattr(self, key), 
+        for key, changed_value in changes_dict.items():
+            current_value = getattr(self, key) 
             setattr(self, key, current_value - changed_value)
     
