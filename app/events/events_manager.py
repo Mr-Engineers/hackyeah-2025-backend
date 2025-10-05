@@ -37,13 +37,11 @@ def get_all_events():
     return events_list
 
 
-def select_suitable_events(player_state: PlayerState, events_list: list):
+def select_suitable_events(player_state: PlayerState):
     # initial events
-    suitable_events = list()
+    events_list = get_all_events()
+    suitable_events = []
     if player_state.age == 20:
-        first_events = [event for event in events_list if event.get_required_attributes_dict() == {'age': 20.0}]
-        suitable_events.append(first_events)
+        suitable_events = [event for event in events_list if event.get_required_attributes_dict() == {'age': 20.0}]
 
     return suitable_events
-
-select_suitable_events(PlayerState(), get_all_events())
