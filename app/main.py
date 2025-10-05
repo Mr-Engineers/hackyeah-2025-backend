@@ -5,7 +5,7 @@ from app.career.router import router as career_router
 from app.finance.router import router as finance_router
 from app.lifestyle.router import router as lifestyle_router
 from fastapi.middleware.cors import CORSMiddleware
-
+from app.events.router import router as events_router   
 app = FastAPI(
     title="Life Simulation API",
     version="0.1.0",
@@ -17,7 +17,7 @@ app.include_router(simulation_router)
 app.include_router(finance_router)
 app.include_router(career_router)
 app.include_router(lifestyle_router)
-
+app.include_router(events_router)
 # Dodajemy CORS, żeby frontend mógł odbierać dane z innego portu
 origins = [
     "http://localhost:3000",
