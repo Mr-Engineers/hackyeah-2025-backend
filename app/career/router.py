@@ -14,7 +14,7 @@ router = APIRouter(prefix="/career")
 career_service = CareerService()
 
 @router.get("/job_offers", response_model=List[schema.JobOffer])
-def get_job_offers(db: AsyncSession = Depends(get_db)):
+async def get_job_offers(db: AsyncSession = Depends(get_db)):
     offers = career_service.get_random_job_offers(db)
     return offers
 
