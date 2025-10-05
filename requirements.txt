@@ -4,5 +4,5 @@ redis
 SQLAlchemy
 supabase
 psycopg2-binary
-gunicorn
-eventlet
+gunicorn==21.2.0
+eventlet==0.33.3
