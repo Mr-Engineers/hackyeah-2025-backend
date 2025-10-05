@@ -74,11 +74,10 @@ class PlayerState(BaseModel):
             current_value = getattr(self, key) 
             setattr(self, key, current_value - changed_value)
 
-<<<<<<< HEAD
         # apply job
         if not event.job_id == None:
             self.job_id = event.job_id
-=======
+            
 retirement_months_dict = {
     30: 588.7,
     31: 577.2,
@@ -117,4 +116,3 @@ retirement_months_dict = {
     64: 227.6,
     65: 218.9,
 }
->>>>>>> f3992581042220b26f848748e9d69a8ef6408e76
