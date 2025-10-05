@@ -198,10 +198,12 @@ class GameSimulator:
     
     def _yearly_exp_gain(self, state: PlayerState):
         state.career_level += 15
+        state.career_level = min(1000, state.career_level)
 
     def _jobless_penalty(self, state: PlayerState):
         if not state.job_id:
             state.happiness -= 15
+            state.happiness = max(0, state.happiness)
     
     def _apply_stat_synergies(self, state: PlayerState):
         if state.happiness > 700:
@@ -242,5 +244,10 @@ class GameSimulator:
         state.happiness = max(0, min(1000, state.happiness))
         state.social_relations = max(0, min(1000, state.social_relations))
         
-
+STAT_CAPS = {
+    "health": 1000,
+    "happiness": 1000,
+    "social_relations": 1000,
+    "education": 5 
+}
         
