@@ -38,7 +38,14 @@ class PlayerStateService:
             data = self._memory_storage.get(self.REDIS_KEY)
             
         if data:
-            return PlayerState.parse_raw(data)
+            try:
+                return PlayerState.parse_raw(data)
+            except Exception as e:
+                print(f"Failed to parse stored player state: {e}. Creating new state.")
+                # If parsing fails due to validation errors, create a new state
+                default_state = PlayerState()
+                self.save_state(default_state)
+                return default_state
         default_state = PlayerState()
         self.save_state(default_state)
         return default_state
