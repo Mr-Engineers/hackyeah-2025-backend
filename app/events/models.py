@@ -45,7 +45,8 @@ class Event:
     disadvantaged_attribute_values: list[float]
 
     job_name: str
-    chance_increaser: int
+    job_id: int
+    available: bool
 
     def __str__(self) -> str:
         return (
@@ -59,7 +60,8 @@ class Event:
             f"Disadvantaged:\n"
             f"  {dict(zip(self.disadvantaged_attributes, self.disadvantaged_attribute_values))}\n"
             f"Chance job_name: {self.job_name}\n"
-            f"Chance Increaser: {self.chance_increaser}\n\n"
+            f"Chance job_id: {self.job_id}\n"
+            f"Chance available: {self.available}\n\n"
         )
     
     def get_required_attributes_dict(self):

@@ -54,12 +54,18 @@ class PlayerState(BaseModel):
             setattr(self, key, current_value - changed_value)
 
     def apply_event(self, event: Event):
+        # apply buffs
         buffs = event.get_advantaged_attributes_dict()
         for key, changed_value in buffs.items():
             current_value = getattr(self, key) 
             setattr(self, key, current_value + changed_value)
 
+        # apply nerfs
         nerfs = event.get_disadvantaged_attributes_dict()
         for key, changed_value in nerfs.items():
             current_value = getattr(self, key) 
             setattr(self, key, current_value - changed_value)
+
+        # apply job
+        if not event.job_id == None:
+            self.job_id = event.job_id
