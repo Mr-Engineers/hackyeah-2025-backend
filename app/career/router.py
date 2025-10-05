@@ -4,8 +4,11 @@ from typing import List
 
 from ..database import get_db
 from . import schema
+from .schema import JobRead
 from .service import CareerService, JobNotFoundError, PlayerNotQualifiedError
 from ..player_state.models import PlayerState as PlayerStateSchema
+from .repository import job_repo
+from ..player_state.router import service
 
 router = APIRouter(prefix="/career")
 career_service = CareerService()
@@ -27,4 +30,8 @@ async def apply_for_job(request: schema.JobApplyRequest, db: AsyncSession = Depe
     except PlayerNotQualifiedError as e:
         raise HTTPException(status_code=400, detail=str(e))
     
-    
+@router.get("/current_job", response_model=JobRead)
+async def get_job_details():
+    player_state = service.load_state()
+    job_details = job_repo.get_by_id(player_state.job_id)
+    return job_details
