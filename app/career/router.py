@@ -15,7 +15,7 @@ career_service = CareerService()
 
 @router.get("/job_offers", response_model=List[schema.JobOffer])
 async def get_job_offers(db: AsyncSession = Depends(get_db)):
-    offers = career_service.get_random_job_offers(db)
+    offers = await career_service.get_random_job_offers(db)
     return offers
 
 @router.post("/apply", response_model=PlayerStateSchema)
