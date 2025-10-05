@@ -25,8 +25,19 @@ class LifestyleService:
         for key, value in action.effects.items():
             if hasattr(player_state, key):
                 current_value = getattr(player_state, key)
-                setattr(player_state, key, current_value + value)
+                new_value = current_value + value
+                if key in STAT_CAPS:
+                    new_value = min(new_value, STAT_CAPS[key])
+                setattr(player_state, key, new_value)
         player_state.lifestyle_expenses += action.cost
         service.save_state(player_state)
 
         return player_state
+    
+
+STAT_CAPS = {
+    "health": 1000,
+    "happiness": 1000,
+    "social_relations": 1000,
+    "education": 5 
+}
