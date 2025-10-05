@@ -3,7 +3,7 @@ from ..player_state.router import service as player_state_service
 class FinanceService:
     def invest(self, amount: float):
         player_state = player_state_service.load_state()
-        if player_state.cash < amount:
+        if player_state.savings < amount:
             raise ValueError("not enough money")
         player_state.savings -= amount
         player_state.investments += amount

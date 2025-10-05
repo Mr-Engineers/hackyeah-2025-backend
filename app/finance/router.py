@@ -2,7 +2,7 @@ from .service import FinanceService
 from fastapi import APIRouter, HTTPException
 from .schema import InvestmentActionRequest
 
-router = APIRouter(prefix="/invest")
+router = APIRouter(prefix="/investments")
 finance_service = FinanceService()
 
 @router.post("/invest")
