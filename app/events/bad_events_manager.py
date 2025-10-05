@@ -1,4 +1,5 @@
 from supabase import create_client, Client
+import random
 from ..events.models import BadEvent
 from ..player_state.models import PlayerState
 from ..events.special_functions import to_str_list, to_num_list, should_trigger
@@ -9,46 +10,32 @@ key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inho
 supabase: Client = create_client(url, key)
 
 
-def create_threshold_player() -> PlayerState:
-    return PlayerState(
-        age=0,
-        health=30,
-        education=0,
-        career_level=0,
-        income=0,
-        savings=0.0,
-        happiness=30,
-        social_relations=30,
-        zus_balance=0.0,
-        spendings=0.0
-    )
-
-
 def get_all_bad_events():
     supa_response = supabase.table("RandomBadEvent").select("*").execute()
     bad_events_list = list()
 
     for row in supa_response.data:
-        temp = BadEvent()
-        temp.title = row['title']
-        temp.description = row['description']
-        temp.image = row['image']
-        temp.decisive_atribute = row['decisive_attribute']
-        temp.decreased_attribute = to_str_list(row.get('decreased_attribute'))
-        temp.decrease_value = to_num_list(row.get('decrease_value'))
+        temp = BadEvent(
+            title = row['title'],
+            description = row['description'],
+            category = row['category'],
+            decisive_atribute = row['decisive_attribute'],
+            threshold = row['threshold'],
+            decreased_attribute = to_str_list(row.get('decreased_attribute')),
+            decrease_value = to_num_list(row.get('decrease_value'))
+        )
         bad_events_list.append(temp)
         print(temp)
 
     return bad_events_list
 
 
-def select_suitable_events(player_state: PlayerState, bad_events_list: list):
+def select_suitable_bad_events(player_state: PlayerState, bad_events_list: list):
     suitable_bad_events = list()
-    threshold_player = create_threshold_player()
     
     for event in bad_events_list:
         player_value= getattr(player_state, event.decisive_atribute)
-        threshold = getattr(threshold_player, event.decisive_atribute)
+        threshold = event.threshold
 
         if player_value <= threshold:
             suitable_bad_events.append(event)
@@ -57,11 +44,11 @@ def select_suitable_events(player_state: PlayerState, bad_events_list: list):
 
 
 def draw_random_bad_event(player_state: PlayerState, bad_events_list: list):
-    threshold_player = create_threshold_player()
+    random.shuffle(bad_events_list)
 
     for event in bad_events_list:
         player_value = getattr(player_state, event.decisive_atribute)
-        threshold_value = getattr(threshold_player, event.decisive_atribute)
+        threshold_value = event.threshold
         if(should_trigger(player_value, threshold_value)):
             return event
         
