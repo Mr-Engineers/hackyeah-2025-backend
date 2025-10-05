@@ -12,18 +12,18 @@ career_service = CareerService()
 
 @router.get("/job_offers", response_model=List[schema.JobOffer])
 async def get_job_offers(db: AsyncSession = Depends(get_db)):
-    offers = await career_service.get_random_job_offers(db)
+    offers = career_service.get_random_job_offers(db)
     return offers
 
 @router.post("/apply", response_model=PlayerStateSchema)
 async def apply_for_job(request: schema.JobApplyRequest, db: AsyncSession = Depends(get_db)):
     try:
-        updated_player_state = await career_service.apply_for_job(
+        updated_player_state = career_service.apply_for_job(
             db, job_id=request.job_id
         )
         return updated_player_state
     except JobNotFoundError as e :
-        raise HTTPException(status_code=404, detial=str(e))
+        raise HTTPException(status_code=404, detail=str(e))
     except PlayerNotQualifiedError(e):
         raise HTTPException(status_code=400, detail=str(e))
     

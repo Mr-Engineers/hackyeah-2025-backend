@@ -12,7 +12,8 @@ class PlayerState(BaseModel):
     health: int = 100
     education: int = 0
     career_level: int = 0
-    income: float = 0
+    income: float = 0.0 # netto rocznie po obliczeniach w symulacji
+    gross_income: float = 0.0 # surowe roczne przychody (np. job.salary*12) - pomocnicze
     savings: float = 0.0
     happiness: int = 50
     social_relations: int = 50
@@ -20,7 +21,7 @@ class PlayerState(BaseModel):
     spendings: float = 0.0
     job_id: Optional[int] = None
     lifestyle_expenses: int = 0
-    
+    b2b_months_active: int = 0
     family: Dict[str, Optional[int]] = {"has_partner": 0, "children": 0}
     zus_yearly_contributions: List[YearContribution] = []
     investments: float = 0.0
