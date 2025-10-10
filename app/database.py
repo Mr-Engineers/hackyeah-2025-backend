@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-POSTGRESQL_URI = f"postgresql://postgres.xhduiiqjmhvhzcqkvkya:hackyeah1234@aws-1-eu-north-1.pooler.supabase.com:5432/postgres"
+POSTGRESQL_URI = f""
 
 engine = create_engine(POSTGRESQL_URI)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
